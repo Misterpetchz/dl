@@ -1,0 +1,9 @@
+.venv
+__pycache__
+*.pyc
+*.pth
+*.pt
+*.png
+*.jpg
+/model_cache
+*.DS_Store
