@@ -4,3 +4,5 @@ torchvision
 pillow 
 huggingface-hub
 timm
+plotly
+torchsummary
