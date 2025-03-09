@@ -158,7 +158,7 @@ st.set_page_config(page_title="Waste Image Classifier", page_icon="🗑️", lay
 st.markdown("<h1 style='text-align: center;'>Waste Image Classifier - Model Comparison</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Upload an image to classify the waste material using two models.</p>", unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([1, 10, 1])
 with col2:
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
