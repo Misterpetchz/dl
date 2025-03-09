@@ -93,14 +93,14 @@ if uploaded_file is not None:
         
         with col1:
             st.subheader(f"Model 1: {MODEL_CONFIGS['model1']['name']}")
-            with st.expander("ℹ️ Hover for Model Summary", expanded=False):
-                st.text("Architecture: " + MODEL_CONFIGS["model1"]["architecture"])
+            # with st.expander("ℹ️ Hover for Model Summary", expanded=False):
+            #     st.text("Architecture: " + MODEL_CONFIGS["model1"]["architecture"])
             st.table(pd.DataFrame(predictions1).drop(columns=['inference_time']))
 
         with col2:
             st.subheader(f"Model 2: {MODEL_CONFIGS['model2']['name']}")
-            with st.expander("ℹ️ Hover for Model Summary", expanded=False):
-                st.text("Architecture: " + MODEL_CONFIGS["model2"]["architecture"])
+            # with st.expander("ℹ️ Hover for Model Summary", expanded=False):
+            #     st.text("Architecture: " + MODEL_CONFIGS["model2"]["architecture"])
             st.table(pd.DataFrame(predictions2).drop(columns=['inference_time']))
 
         # Inference time comparison
@@ -114,12 +114,14 @@ if uploaded_file is not None:
         })
 
         # Create bar chart for inference time comparison
+        st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
+        st.subheader("Inference Time Comparison")
         fig = px.bar(
             inference_times_df, 
             x="Model", 
             y="Inference Time (s)", 
-            title="Inference Time Comparison", 
             text_auto=True,
             color="Model"
         )
         st.plotly_chart(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
