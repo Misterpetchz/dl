@@ -155,18 +155,39 @@ def predict_image(image_data, model_key):
     return results
 
 st.set_page_config(page_title="Waste Image Classifier", page_icon="🗑️", layout="wide")
-st.title("Waste Image Classifier - Model Comparison")
-st.markdown("Upload an image to classify the waste material using two models.")
+st.markdown("<h1 style='text-align: center;'>Waste Image Classifier - Model Comparison</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Upload an image to classify the waste material using two models.</p>", unsafe_allow_html=True)
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    # Center the uploaded image
+    # Center the uploaded image with more weight to the central column
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
-        st.image(uploaded_file, caption="Uploaded Image", width=400)
-
-    if st.button("Classify with Both Models"):
+        st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
+    
+    # Center the button
+    st.markdown(
+        """
+        <style>
+        div.stButton > button {
+            display: block;
+            margin: 0 auto 0;
+            min-width: 200px;
+        }
+        /* Center subheaders */
+        .css-10trblm {
+            text-align: center;
+        }
+        </style>
+        """, 
+        unsafe_allow_html=True
+    )
+    classify_button = st.button("Classify with Both Models")
+    
+    if classify_button:
         col1, col2 = st.columns(2)
         img_bytes = uploaded_file.getvalue()
         
@@ -174,12 +195,14 @@ if uploaded_file is not None:
         predictions2 = predict_image(img_bytes, "model2")
         
         with col1:
-            st.subheader(f"Model 1: {MODEL_CONFIGS['model1']['name']}")
+            # Using markdown for centered subheader instead of st.subheader
+            st.markdown(f"<h3 style='text-align: center;'>Model 1: {MODEL_CONFIGS['model1']['name']}</h3>", unsafe_allow_html=True)
             st.markdown(create_hover_box("model1"), unsafe_allow_html=True)
             st.table(pd.DataFrame(predictions1).drop(columns=['inference_time']))
 
         with col2:
-            st.subheader(f"Model 2: {MODEL_CONFIGS['model2']['name']}")
+            # Using markdown for centered subheader instead of st.subheader
+            st.markdown(f"<h3 style='text-align: center;'>Model 2: {MODEL_CONFIGS['model2']['name']}</h3>", unsafe_allow_html=True)
             st.markdown(create_hover_box("model2"), unsafe_allow_html=True)
             st.table(pd.DataFrame(predictions2).drop(columns=['inference_time']))
 
@@ -194,7 +217,7 @@ if uploaded_file is not None:
 
         # Create bar chart for inference time comparison
         st.markdown('<div style="height: 50px;"></div>', unsafe_allow_html=True)
-        st.subheader("Inference Time Comparison")
+        st.markdown("<h3 style='text-align: center;'>Inference Time Comparison</h3>", unsafe_allow_html=True)
         fig = px.bar(
             inference_times_df, 
             x="Model", 
@@ -203,4 +226,3 @@ if uploaded_file is not None:
             color="Model"
         )
         st.plotly_chart(fig)
-        st.markdown('</div>', unsafe_allow_html=True)
