@@ -129,12 +129,21 @@ def create_hover_box(model_key):
 
 def predict_image(image_data, model_key):
     model = load_model(model_key)
-    transform = transforms.Compose([
-        transforms.Resize(224),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ])
+    if model_key == 'model1':
+        transform = transforms.Compose([
+            transforms.Resize(380),  
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+            # transforms.Grayscale(num_output_channels=3)
+        ])
+    else:
+        transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+            # transforms.Grayscale(num_output_channels=3)
+        ])
     img = Image.open(io.BytesIO(image_data)).convert('RGB')
     img_tensor = transform(img).unsqueeze(0)
     
