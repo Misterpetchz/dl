@@ -16,7 +16,7 @@ import plotly.express as px
 
 # Use a temporary directory for uploads
 UPLOAD_FOLDER = tempfile.gettempdir()
-LABELS = ['Alucan', 'HDPEM', 'PET', 'Glass']
+LABELS = ['Alucan', 'Glass', 'HDPEM', 'PET']
 
 MODEL_CONFIGS = {
     "model1": {
